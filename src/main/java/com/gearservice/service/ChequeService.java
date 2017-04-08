@@ -2,7 +2,6 @@ package com.gearservice.service;
 
 import com.gearservice.model.cheque.*;
 import com.gearservice.repositories.jpa.*;
-import com.gearservice.repositories.mongo.PhotoRepository;
 import com.gearservice.model.request.RequestPreferences;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -33,16 +32,14 @@ public class ChequeService {
     private final ChequeRepository chequeRepository;
     private final DiagnosticRepository diagnosticRepository;
     private final NoteRepository noteRepository;
-    private final PhotoRepository photoRepository;
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
 
     @Autowired
-    public ChequeService(ChequeRepository chequeRepository, DiagnosticRepository diagnosticRepository, NoteRepository noteRepository, PhotoRepository photoRepository, UserRepository userRepository, PaymentRepository paymentRepository) {
+    public ChequeService(ChequeRepository chequeRepository, DiagnosticRepository diagnosticRepository, NoteRepository noteRepository, UserRepository userRepository, PaymentRepository paymentRepository) {
         this.chequeRepository = chequeRepository;
         this.diagnosticRepository = diagnosticRepository;
         this.noteRepository = noteRepository;
-        this.photoRepository = photoRepository;
         this.userRepository = userRepository;
         this.paymentRepository = paymentRepository;
     }
@@ -84,7 +81,6 @@ public class ChequeService {
     @Transactional
     public void deleteCheque(@PathVariable Long chequeID) {
         chequeRepository.delete(chequeID);
-        photoRepository.deleteByChequeId(chequeID.toString());
     }
 
     /**
